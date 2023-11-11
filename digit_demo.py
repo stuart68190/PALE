@@ -5,21 +5,12 @@ from PIL import Image, ImageDraw
 import torch
 import torch.nn as nn
 
-class SimpleNet(nn.Module):
-    def __init__(self):
-        super(SimpleNet, self).__init__()
-        self.fc1 = nn.Linear(784, 5)
-        self.fc2 = nn.Linear(5, 10)
-
-    def forward(self, x):
-        x = x.view(-1, 784)
-        x = nn.functional.relu(self.fc1(x))
-        x = self.fc2(x)
-        return x
-
-# load the trained PyTorch model
-model = SimpleNet()
-model.load_state_dict(torch.load('model.pth'))
+# use the BiggerNet model from pale_nets.py
+# and load the weights from the file bigger_net.pth
+# which was trained in mnist_part_4.ipynb
+import models.pale_nets as pale_nets
+model = pale_nets.BiggerNet()
+model.load_state_dict(torch.load('models/bigger_net_mnist.pth'))
 model.eval()
 
 window = tk.Tk()
