@@ -69,3 +69,19 @@ class SimpleNet(nn.Module):
         x = self.fc2(x)
         return x
     
+class SimpleNet2(nn.Module):
+    """
+    A simple neural network with two fully connected layers.
+    The input size is 784, output size is 10, and the hidden layer size is 512.
+    Uses ReLU activation function for the hidden layer.
+    """
+    def __init__(self):
+        super().__init__()
+        self.fc1 = nn.Linear(784, 512)
+        self.fc2 = nn.Linear(512, 10)
+
+    def forward(self, x):
+        x = x.view(-1, 784)
+        x = nn.functional.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
