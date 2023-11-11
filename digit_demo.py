@@ -9,8 +9,8 @@ import torch.nn as nn
 # and load the weights from the file bigger_net.pth
 # which was trained in mnist_part_4.ipynb
 import models.pale_nets as pale_nets
-model = pale_nets.BiggerNet()
-model.load_state_dict(torch.load('models/bigger_net_mnist.pth'))
+model = pale_nets.ConvolvedNet()
+model.load_state_dict(torch.load('models/convolved_net_mnist.pth'))
 model.eval()
 
 window = tk.Tk()
@@ -31,6 +31,7 @@ def predict_digit():
     np_image = np_image / 255.0
     np_image = np_image[np.newaxis, :, :]
     tensor_image = torch.from_numpy(np_image).float()
+    tensor_image = tensor_image.unsqueeze(0)
 
     with torch.no_grad():
         output = model(tensor_image)
